@@ -13,35 +13,54 @@
     <title>Library</title>
   </head>
   <body>
-    <div class="loginPopup">
-      <div class="formPopup" id="popupForm">
-        <form action="/action_page.php" class="formContainer">
-          <h2>Please Log in</h2>
-          <label for="email">
-            <strong>E-mail</strong>
-          </label>
-          <input
-            type="text"
-            id="email"
-            placeholder="Your Email"
-            name="email"
-            required
-          />
-          <label for="psw">
-            <strong>Password</strong>
-          </label>
-          <input
-            type="password"
-            id="psw"
-            placeholder="Your Password"
-            name="psw"
-            required
-          />
-          <button type="submit" class="btn">Log in</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">
-            Close
-          </button>
-        </form>
+    <div id="modalOne" class="modal">
+      <div class="modal-content">
+        <div class="contact-form">
+          <a class="close">&times;</a>
+          <form id="addBook" action="/" method="GET">
+            <h2>Book Information</h2>
+            <div>
+              <label for="forTitle">
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="Book Title"
+                />
+              </label>
+              <label for="forAuthor">
+                <input
+                  type="text"
+                  name="author"
+                  id="author"
+                  placeholder="Author"
+                />
+              </label>
+              <label for="forPages">
+                <input
+                  type="number"
+                  name="pages"
+                  id="pages"
+                  placeholder="Number of Pages"
+                />
+              </label>
+              <span>Have you read this book ?</span>
+              <label class="switch">
+                <input
+                  class="switch-input"
+                  type="checkbox"
+                  name="isRead"
+                  id="isRead"
+                />
+                <span class="switch-label" data-on="Yes" data-off="No"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </div>
+            <button id="submitNewBook" type="button" href="/">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -50,18 +69,14 @@
         <span class="material-icons">
           search
         </span>
-        <form action="GET">
+        <form id="search" action="GET">
           <input type="text" id="search" name="search" />
         </form>
       </div>
-
       <h1>Library</h1>
-
-      <div class="openBtn">
-        <button id="header-button" class="openButton" onclick="openForm()">
-          <strong>Open Form</strong>
-        </button>
-      </div>
+      <button id="header-button" class="button" data-modal="modalOne">
+        Add Book
+      </button>
     </header>
     <div id="container">
       <div class="card"></div>
