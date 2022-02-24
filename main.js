@@ -1,5 +1,38 @@
+try {
+  let userLibrary = localStorage.getItem(userLibrary)
+} catch (err) {
+  let userLibrary = []
+  localStorage.setItem('Book', userLibrary)
+}
+
 const submitNewBookButton = document.getElementById('submitNewBook')
 const form = document.getElementById('addBook')
+const cardContainer = document.getElementById('container')
+const cardTemplate = `<div class="card">
+<div class="title">
+  ${Book.title}
+</div>
+<div class="author">
+  ${Book.author}
+</div>
+<div class="pages">
+  2000
+  <span>pages</span>
+</div>
+<div class="haveYouRead">
+  <span>Have you read this book ?</span>
+  <label class="switch">
+    <input
+      class="switch-input"
+      type="checkbox"
+      name="isRead"
+      id="isRead"
+    />
+    <span class="switch-label" data-on="Yes" data-off="No"></span>
+    <span class="switch-handle"></span>
+  </label>
+</div>
+</div>`
 
 let userLibrary = []
 let title = ''

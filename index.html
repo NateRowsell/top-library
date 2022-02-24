@@ -21,6 +21,7 @@
             <h2>Book Information</h2>
             <div>
               <label for="forTitle">
+                <span>Title</span>
                 <input
                   type="text"
                   name="title"
@@ -29,6 +30,7 @@
                 />
               </label>
               <label for="forAuthor">
+                <span>Author</span>
                 <input
                   type="text"
                   name="author"
@@ -37,6 +39,7 @@
                 />
               </label>
               <label for="forPages">
+                <span>Number of Pages</span>
                 <input
                   type="number"
                   name="pages"
@@ -70,21 +73,23 @@
           search
         </span>
         <form id="search" action="GET">
-          <input type="text" id="search" name="search" />
+          <input
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Search Books ..."
+          />
         </form>
       </div>
       <h1>Library</h1>
       <button id="header-button" class="button" data-modal="modalOne">
+        <span class="material-icons">
+          add
+        </span>
         Add Book
       </button>
     </header>
-    <div id="container">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card"></div>
-    </div>
+    <div id="container"></div>
   </body>
   <script>
     function openTheForm() {
