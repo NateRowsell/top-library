@@ -1,38 +1,8 @@
-try {
-  let userLibrary = localStorage.getItem(userLibrary)
-} catch (err) {
-  let userLibrary = []
-  localStorage.setItem('Book', userLibrary)
-}
+let userLibrary = JSON.parse(localStorage.getItem('Book') || '[]')
 
 const submitNewBookButton = document.getElementById('submitNewBook')
 const form = document.getElementById('addBook')
 const cardContainer = document.getElementById('container')
-const cardTemplate = `<div class="card">
-<div class="title">
-  ${Book.title}
-</div>
-<div class="author">
-  ${Book.author}
-</div>
-<div class="pages">
-  2000
-  <span>pages</span>
-</div>
-<div class="haveYouRead">
-  <span>Have you read this book ?</span>
-  <label class="switch">
-    <input
-      class="switch-input"
-      type="checkbox"
-      name="isRead"
-      id="isRead"
-    />
-    <span class="switch-label" data-on="Yes" data-off="No"></span>
-    <span class="switch-handle"></span>
-  </label>
-</div>
-</div>`
 
 let userLibrary = []
 let title = ''
@@ -88,3 +58,52 @@ submitNewBookButton.addEventListener('click', () => {
   isRead = form.isRead.checked
   addNewBook(title, author, pages, isRead)
 })
+
+function displayCards() {
+  cardContainer.replaceChildren()
+  if (userLibrary.length == null) {
+    return 0
+  } else {
+    for (let i = 0; i < userLibrary.length; i++) {
+      bookAuthor = userLibrary[i].author
+      bookTitle = userLibrary[i].title
+      bookPages = userLibrary[i].pages
+      if (userLibrary[i].isRead == true) {
+        bookRead = 'switch-label-true'
+      } else {
+        bookRead = 'switch-label'
+      }
+
+      const cardTemplate = `<div class="title">
+          ${bookTitle}
+        </div>
+        <div class="author">
+          ${bookAuthor}
+        </div>
+        <div class="pages">
+          ${bookPages}
+          <span>pages</span>
+        </div>
+        <div class="haveYouRead">
+          <span>Have you read this book ?</span>
+          <label class="switch">
+            <input
+              class="switch-input"
+              type="checkbox"
+              name="isRead"
+              id="isRead"
+            />
+            <span class="${bookRead}" data-on="Yes" data-off="No"></span>
+            <span class="switch-handle"></span>
+          </label>
+        </div>`
+
+      const cardDiv = document.createElement('div')
+      // libraryDiv.classList.add('library-card');
+      cardDiv.classList.add('card')
+      cardDiv.innerHTML = cardTemplate
+
+      cardContainer.appendChild(cardDiv)
+    }
+  }
+}
