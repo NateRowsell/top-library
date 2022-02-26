@@ -393,14 +393,14 @@ button.button:hover {
 .switch-label:before {
   content: attr(data-off);
   right: 11px;
-  color: #aaaaaa;
-  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  color: black;
+  font-weight: 600;
 }
 .switch-label:after {
   content: attr(data-on);
   left: 11px;
-  color: #ffffff;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+  color: black;
+  font-weight: 600;
   opacity: 0;
 }
 .switch-input:checked ~ .switch-label {
@@ -480,7 +480,7 @@ button.button:hover {
   height: inherit;
   font-size: 10px;
   text-transform: uppercase;
-  background: rgba(255, 0, 0, 0.7);
+  background: green;
   border-radius: inherit;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12),
     inset 0 0 2px rgba(0, 0, 0, 0.15);
@@ -498,19 +498,20 @@ button.button:hover {
 }
 .switch-label-true:before {
   content: attr(data-on);
-  right: 11px;
-  color: #aaaaaa;
-  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  left: 11px;
+  color: black;
+  font-weight: 600;
 }
 .switch-label-true:after {
   content: attr(data-off);
-  left: 11px;
-  color: #ffffff;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+  right: 11px;
+  color: black;
+  font-weight: 600;
+
   opacity: 0;
 }
 .switch-input-true:checked ~ .switch-label-true {
-  background: green;
+  background: rgb(255, 0, 0, 0.7);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15),
     inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
@@ -523,7 +524,7 @@ button.button:hover {
 .switch-handle-true {
   position: absolute;
   top: 4px;
-  left: 4px;
+  left: 74px; /* This sets pos of switch*/
   width: 28px;
   height: 28px;
   background: linear-gradient(to bottom, #ffffff 40%, #f0f0f0);
@@ -532,7 +533,7 @@ button.button:hover {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 .switch-handle-true:before {
-  content: attr(data-on);
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -545,7 +546,7 @@ button.button:hover {
   box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 }
 .switch-input-true:checked ~ .switch-handle-true {
-  left: 74px;
+  left: 4px;
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 /* Transition

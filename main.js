@@ -71,7 +71,7 @@ function displayCards() {
         </div>
         <div class="haveYouRead">
           <span>Have you read this book ?</span>
-          <label class="${labelClass}">
+          <label id="toggleButton" class="switch switch-true">
             <input
               class="${inputClass}"
               type="checkbox"
@@ -87,11 +87,53 @@ function displayCards() {
       // libraryDiv.classList.add('library-card');
       cardDiv.classList.add('card')
       cardDiv.innerHTML = cardTemplate
+      let children = cardDiv.children
+      let toggleElement = children[3].lastElementChild
+      if (userLibrary[i].isRead == true) {
+        toggleElement.classList.toggle('switch')
+      } else {
+        toggleElement.classList.toggle('switch-true')
+      }
 
       cardContainer.appendChild(cardDiv)
     }
   }
 }
+
+let toggleButtonElements = document.querySelectorAll('#toggleButton')
+let lengthButtonElements = toggleButtonElements.length
+
+console.log(toggleButtonElements)
+
+for (let i = 0; i < lengthButtonElements; i++) {
+  let toggleButton = toggleButtonElements.item(i)
+  toggleButton.addEventListener('change', () => {
+    toggleButton.classList.toggle('switch')
+    toggleButton.classList.toggle('switch-true')
+  })
+}
+
+//let toggleButtonsTrue = document.getElementsByClassName('switch')
+//let lengthButtonsTrue = toggleButtonsTrue.length
+
+//let toggleButtonsFalse = document.getElementsByClassName('switch-true')
+//let lengthButtonsFalse = toggleButtonsFalse.length
+
+//for (let i = 0; i < lengthButtonsTrue; i++) {
+//  let toggleButtonTrue = toggleButtonsTrue.item(i)
+//  toggleButtonsTrue.item(i).addEventListener('click', () => {
+//    toggleButtonTrue.classList.remove('switch')
+//   toggleButtonTrue.classList.add('switch-true')
+//  })
+//}
+
+//for (let i = 0; i < lengthButtonsFalse; i++) {
+//  let toggleButtonFalse = toggleButtonsFalse.item(i)
+//  toggleButtonsFalse.item(i).addEventListener('click', () => {
+//    toggleButtonFalse.classList.remove('switch-true')
+//    toggleButtonFalse.classList.add('switch')
+//  })
+//}
 
 // CODE FOR POP UP FORM START
 
