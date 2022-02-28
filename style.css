@@ -259,6 +259,30 @@ header > h1 {
   align-items: center;
 }
 
+.delete-button {
+  background: none;
+  border: none;
+  margin-left: 90%;
+  margin-bottom: -10%;
+}
+
+.delete-button:hover {
+  background: none;
+  border: none;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.delete-button span {
+  color: rgb(255, 0, 0, 0.5);
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+.delete-button span:hover {
+  color: rgb(255, 0, 0);
+}
+
 /*FORM CSS*/
 
 #addBook h2 {

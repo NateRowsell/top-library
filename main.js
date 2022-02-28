@@ -8,6 +8,7 @@ let title = ''
 let author = ''
 let isRead = false
 let pages = 0
+let bookIndex = 0
 
 displayCards()
 
@@ -27,15 +28,20 @@ function addNewBook(title, author, pages, isRead) {
   newBook.addBook()
 }
 
-console.log(userLibrary)
+function addBookToLocalStorage() {
+  localStorage.setItem('Book', JSON.stringify(userLibrary))
+}
 
 submitNewBookButton.addEventListener('click', () => {
   title = form.title.value
-  author = form.title.value
-  pages = form.title.value
+  author = form.author.value
+  pages = form.pages.value
   isRead = form.isRead.checked
   addNewBook(title, author, pages, isRead)
+  addBookToLocalStorage()
   displayCards()
+  addButtonListeners()
+  addDeletListeners()
 })
 
 function displayCards() {
@@ -44,22 +50,25 @@ function displayCards() {
     return 0
   } else {
     for (let i = 0; i < userLibrary.length; i++) {
+      bookIndex = i
       bookAuthor = userLibrary[i].author
       bookTitle = userLibrary[i].title
       bookPages = userLibrary[i].pages
       if (userLibrary[i].isRead == true) {
-        labelClass = 'switch-true'
         inputClass = 'switch-input-true'
         spanClass = 'switch-label-true'
         handleClass = 'switch-handle-true'
       } else {
-        labelClass = 'switch'
         inputClass = 'switch-input'
         spanClass = 'switch-label'
         handleClass = 'switch-handle'
       }
 
-      const cardTemplate = `<div class="title">
+      const cardTemplate = `
+      <button class="delete-button"><span class="material-icons">
+      clear
+      </span></button>
+      <div class="title">
           ${bookTitle}
         </div>
         <div class="author">
@@ -71,7 +80,7 @@ function displayCards() {
         </div>
         <div class="haveYouRead">
           <span>Have you read this book ?</span>
-          <label id="toggleButton" class="switch switch-true">
+          <label id="toggleButton" class="switch switch-true" index="${bookIndex}">
             <input
               class="${inputClass}"
               type="checkbox"
@@ -88,7 +97,7 @@ function displayCards() {
       cardDiv.classList.add('card')
       cardDiv.innerHTML = cardTemplate
       let children = cardDiv.children
-      let toggleElement = children[3].lastElementChild
+      let toggleElement = children[4].lastElementChild
       if (userLibrary[i].isRead == true) {
         toggleElement.classList.toggle('switch')
       } else {
@@ -96,44 +105,46 @@ function displayCards() {
       }
 
       cardContainer.appendChild(cardDiv)
+      bookIndex++
     }
   }
 }
 
-let toggleButtonElements = document.querySelectorAll('#toggleButton')
-let lengthButtonElements = toggleButtonElements.length
+function addButtonListeners() {
+  let toggleButtonElements = document.querySelectorAll('#toggleButton')
+  let lengthButtonElements = toggleButtonElements.length
+  for (let i = 0; i < lengthButtonElements; i++) {
+    let toggleButton = toggleButtonElements.item(i)
+    toggleButton.addEventListener('change', () => {
+      toggleButton.classList.toggle('switch')
+      toggleButton.classList.toggle('switch-true')
 
-console.log(toggleButtonElements)
-
-for (let i = 0; i < lengthButtonElements; i++) {
-  let toggleButton = toggleButtonElements.item(i)
-  toggleButton.addEventListener('change', () => {
-    toggleButton.classList.toggle('switch')
-    toggleButton.classList.toggle('switch-true')
-  })
+      if (userLibrary[i].isRead == false) {
+        userLibrary[i].isRead = true
+        addBookToLocalStorage()
+      } else {
+        userLibrary[i].isRead = false
+        addBookToLocalStorage()
+      }
+    })
+  }
 }
+addButtonListeners()
 
-//let toggleButtonsTrue = document.getElementsByClassName('switch')
-//let lengthButtonsTrue = toggleButtonsTrue.length
-
-//let toggleButtonsFalse = document.getElementsByClassName('switch-true')
-//let lengthButtonsFalse = toggleButtonsFalse.length
-
-//for (let i = 0; i < lengthButtonsTrue; i++) {
-//  let toggleButtonTrue = toggleButtonsTrue.item(i)
-//  toggleButtonsTrue.item(i).addEventListener('click', () => {
-//    toggleButtonTrue.classList.remove('switch')
-//   toggleButtonTrue.classList.add('switch-true')
-//  })
-//}
-
-//for (let i = 0; i < lengthButtonsFalse; i++) {
-//  let toggleButtonFalse = toggleButtonsFalse.item(i)
-//  toggleButtonsFalse.item(i).addEventListener('click', () => {
-//    toggleButtonFalse.classList.remove('switch-true')
-//    toggleButtonFalse.classList.add('switch')
-//  })
-//}
+function addDeletListeners() {
+  let deleteButtonElements = document.querySelectorAll('.delete-button')
+  for (let i = 0; i < deleteButtonElements.length; i++) {
+    let deleteButton = deleteButtonElements.item(i)
+    deleteButton.addEventListener('click', () => {
+      userLibrary.splice(i, 1)
+      addBookToLocalStorage()
+      displayCards()
+      addButtonListeners()
+      addDeletListeners()
+    })
+  }
+}
+addDeletListeners()
 
 // CODE FOR POP UP FORM START
 
