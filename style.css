@@ -150,6 +150,7 @@ header {
   padding-right: 5%;
   position: fixed;
   top: 0vh;
+  z-index: 2;
 }
 
 header > h1 {
@@ -167,6 +168,8 @@ header > h1 {
   background-color: #c1bdb3;
   width: 100%;
   border-radius: 10px;
+  border: none;
+  outline: black;
 }
 
 #search-bar .material-icons {
@@ -205,7 +208,7 @@ header > h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   padding-top: 20vh;
 }
 
@@ -228,13 +231,13 @@ header > h1 {
 }
 
 .title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5em;
+  font-size: 2em;
+  text-overflow: clip;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-  width: 80%;
+  max-width: 80%;
+  white-space: pre-line;
+  text-align: center;
+  overflow: hidden;
 }
 
 .author {
@@ -343,6 +346,7 @@ textarea {
 button:hover {
   background: #fff;
   color: #323031;
+  cursor: pointer;
 }
 .close {
   color: #aaa;
@@ -584,3 +588,6 @@ button.button:hover {
 }
 
 /* END TOGGLE SWITCH DEAFULT TRUE */
+
+#toggleButton {
+}

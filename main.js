@@ -3,6 +3,7 @@ let userLibrary = JSON.parse(localStorage.getItem('Book') || '[]')
 const submitNewBookButton = document.getElementById('submitNewBook')
 const form = document.getElementById('addBook')
 const cardContainer = document.getElementById('container')
+const popUpForm = document.getElementById('modalOne')
 
 let title = ''
 let author = ''
@@ -32,16 +33,41 @@ function addBookToLocalStorage() {
   localStorage.setItem('Book', JSON.stringify(userLibrary))
 }
 
+function resetFormContent() {
+  document.getElementById('addBook').reset()
+}
+
+function checkIfInLibrary() {
+  let modifiedTitle = title.split(' ').join('').toLowerCase()
+  for (let i = 0; i < userLibrary.length; i++) {
+    if (
+      userLibrary[i].title.split(' ').join('').toLowerCase() == modifiedTitle
+    ) {
+      return true
+    }
+    return false
+  }
+}
+
 submitNewBookButton.addEventListener('click', () => {
   title = form.title.value
   author = form.author.value
   pages = form.pages.value
   isRead = form.isRead.checked
-  addNewBook(title, author, pages, isRead)
-  addBookToLocalStorage()
-  displayCards()
-  addButtonListeners()
-  addDeletListeners()
+  if (checkIfInLibrary() == true) {
+    //book is in library
+    popUpForm.style.display = 'none'
+    resetFormContent()
+    alert(title + ' is already in your library')
+  } else {
+    addNewBook(title, author, pages, isRead)
+    addBookToLocalStorage()
+    displayCards()
+    addButtonListeners()
+    addDeletListeners()
+    resetFormContent()
+    popUpForm.style.display = 'none'
+  }
 })
 
 function displayCards() {
@@ -136,11 +162,19 @@ function addDeletListeners() {
   for (let i = 0; i < deleteButtonElements.length; i++) {
     let deleteButton = deleteButtonElements.item(i)
     deleteButton.addEventListener('click', () => {
-      userLibrary.splice(i, 1)
-      addBookToLocalStorage()
-      displayCards()
-      addButtonListeners()
-      addDeletListeners()
+      let thisBook = userLibrary[i].title
+      let confirmation = confirm(
+        'Are you sure you want to delete ' +
+          thisBook +
+          '?\n\nEither OK or Cancel.',
+      )
+      if (confirmation == true) {
+        userLibrary.splice(i, 1)
+        addBookToLocalStorage()
+        displayCards()
+        addButtonListeners()
+        addDeletListeners()
+      }
     })
   }
 }
